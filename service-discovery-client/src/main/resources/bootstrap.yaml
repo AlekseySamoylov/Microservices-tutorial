@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: region1
+    active: ${region:region1}
   application:
     name: service-discovery-client
   cloud:
