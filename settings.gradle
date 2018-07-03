@@ -1,0 +1,5 @@
+rootProject.name = 'micro'
+include 'service-discovery-client'
+include 'service-discovery-server'
+include 'api-gateway'
+include 'config-server'

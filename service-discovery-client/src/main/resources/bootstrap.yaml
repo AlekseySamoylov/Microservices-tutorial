@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: region1
+  application:
+    name: service-discovery-client
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-server
+      uri: http://localhost:8889

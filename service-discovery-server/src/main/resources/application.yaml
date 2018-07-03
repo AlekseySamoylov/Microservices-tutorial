@@ -1,0 +1,14 @@
+server:
+  # you can pass argument to JVM (java -DPORT=8762 -jar <jar-name>)
+  port: ${port:8761}
+
+eureka:
+  server:
+    # for testing
+    eviction-interval-timer-in-ms: 5000
+    response-cache-update-interval-ms: 3000
+  # Eureka server has client's dependencies. We have to disable it in this case
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
