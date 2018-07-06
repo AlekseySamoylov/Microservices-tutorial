@@ -33,6 +33,9 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-zuul')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('de.codecentric:spring-boot-admin-starter-client:1.5.7')
+
+    compile('org.springframework.boot:spring-boot-starter-actuator')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
