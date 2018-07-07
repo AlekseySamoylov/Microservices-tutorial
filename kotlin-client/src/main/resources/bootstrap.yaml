@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: ${region:region1}
+  application:
+    name: service-kotlin-client
+  cloud:
+    config:
+      uri: http://localhost:8889
