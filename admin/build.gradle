@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.alekseysamoylov'
 version = '0.0.1-SNAPSHOT'
@@ -24,21 +25,19 @@ repositories {
 
 
 ext {
+    springBootAdminVersion = '1.5.7'
     springCloudVersion = 'Edgware.SR3'
 }
 
 dependencies {
-    compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
-    compile('org.springframework.cloud:spring-cloud-starter-config')
-    compile('de.codecentric:spring-boot-admin-starter-client:1.5.7')
-
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-
+//    compile('de.codecentric:spring-boot-admin-starter-server')
+    compile('de.codecentric:spring-boot-admin-server:1.5.7')
+    compile('de.codecentric:spring-boot-admin-server-ui:1.5.7')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     }
 }

@@ -9,3 +9,13 @@ spring:
       server:
         git:
           uri: https://github.com/AlekseySamoylov/microservice-config.git
+  boot:
+    admin:
+      url: http://localhost:8086
+  profiles:
+    active: production
+
+management:
+  security:
+    enabled: false
+
