@@ -1,7 +1,12 @@
-admin-server: http://localhost:8086
+discovery-server: http://localhost:8761
+discovery-client: http://localhost:8081/ping
+api-gateway: http://localhost:8765/api/client/ping
 config-server: http://localhost:8889/service-discovery-client/region1
                http://localhost:8889/service-discovery-client-region2.yaml
                http://localhost:8889/service-discovery-client-region2.properties
 discovery-server: http://localhost:8761
 discovery-client: http://localhost:8081/ping
+kotlin-client: http://localhost:8083/ping
+go-client: http://localhost:8085/ping
 api-gateway: http://localhost:8765/api/client/ping
+             http://localhost:8765/api/kotlin-client/ping

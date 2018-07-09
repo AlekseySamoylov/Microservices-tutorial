@@ -1,5 +1,6 @@
 rootProject.name = 'micro'
 include 'service-discovery-client'
+include 'service-go-client'
 include 'service-discovery-server'
 include 'api-gateway'
 include 'config-server'
