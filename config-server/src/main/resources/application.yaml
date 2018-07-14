@@ -9,6 +9,7 @@ spring:
       server:
         git:
           uri: https://github.com/AlekseySamoylov/microservice-config.git
+          search-paths: logging
   boot:
     admin:
       url: http://localhost:8086
