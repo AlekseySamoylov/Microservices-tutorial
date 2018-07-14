@@ -6,3 +6,5 @@ spring:
   cloud:
     config:
       uri: http://localhost:8889
+logging:
+  config: http://127.0.0.1:8889/logging/production/master/client-logback-spring.xml
