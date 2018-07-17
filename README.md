@@ -2,6 +2,7 @@ spring-admin: http://127.0.0.1:8086/#/
 config-server: http://localhost:8889/service-discovery-client/region1
                http://localhost:8889/service-discovery-client-region2.yaml
                http://localhost:8889/service-discovery-client-region2.properties
+               http://127.0.0.1:8889/logging/production/master/shop-logback-spring.xml
 discovery-server: http://localhost:8761
 discovery-client: http://localhost:8081/ping
 api-gateway: http://localhost:8765/api/client/ping
