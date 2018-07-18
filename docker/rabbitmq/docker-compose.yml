@@ -5,7 +5,7 @@ services:
     hostname: rabbit
     image: rabbitmq:3-management
     environment:
-      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_USER=rabbit
       - RABBITMQ_DEFAULT_PASS=secret
       - RABBITMQ_DEFAULT_VHOST=/
     ports:
