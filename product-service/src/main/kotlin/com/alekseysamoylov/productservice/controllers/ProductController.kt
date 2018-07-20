@@ -1,15 +1,18 @@
 package com.alekseysamoylov.productservice.controllers
 
-import com.alekseysamoylov.orderservice.model.Product
+import com.alekseysamoylov.productservice.model.Product
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
+import java.util.concurrent.atomic.AtomicLong
 
 @RestController
 class ProductController {
     private val log = LoggerFactory.getLogger(ProductController::class.java)
+
+    private var products: MutableMap<Long, Product> = mutableMapOf(1L to Product(1, "New Product"))
+    private val counter: AtomicLong = AtomicLong(1)
 
     @Value("\${product.prefix}")
     private lateinit var productPrefix: String
@@ -19,10 +22,23 @@ class ProductController {
         return "Hello kotlin product app"
     }
 
-    @GetMapping("/product/1")
-    fun getProduct(): Product {
-        log.info("Product $productPrefix has found")
-        return Product(1, "The best $productPrefix product")
+    @GetMapping("/product/{productId}")
+    fun getProduct(@PathVariable productId: Long): Product {
+        val product = products.get(productId)
+        if (product != null) {
+            return product
+        } else {
+            return Product()
+        }
+    }
+
+    @PostMapping("/product")
+    fun saveProduct(@RequestBody product: Product): Product {
+        val id = counter.incrementAndGet()
+        product.id = id
+        product.name = "$productPrefix ${product.name}"
+        products.put(id, product)
+        return product
     }
 
     @GetMapping("/product")
