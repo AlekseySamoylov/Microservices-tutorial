@@ -27,7 +27,7 @@ class OrderController {
     }
 
     @GetMapping("/order-feign-product/{productId}")
-    fun orderFeignProduct1(@PathVariable productId: Long): String {
+    fun orderFeignProduct1(@PathVariable productId: String): String {
         val product = productClient.findProduct(productId)
         return "Service has ordered a product: $product using Feign"
     }

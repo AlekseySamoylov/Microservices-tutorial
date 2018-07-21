@@ -56,10 +56,11 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-feign')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
 //    compile('org.springframework.boot:spring-boot-starter-amqp')
-//    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 //    compile('de.codecentric:spring-boot-admin-starter-client')
 //    compile('org.springframework.cloud:spring-cloud-bus')
 //    compile('org.springframework.cloud:spring-cloud-starter-config'
