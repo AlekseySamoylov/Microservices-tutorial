@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
 interface ProductClient {
 
     @GetMapping("/product/{productId}")
-    fun findProduct(@RequestParam(name = "productId") productId: Long): Product
+    fun findProduct(@RequestParam(name = "productId") productId: String): Product
 
     @PostMapping("/product")
     fun saveProduct(product: Product): Product
