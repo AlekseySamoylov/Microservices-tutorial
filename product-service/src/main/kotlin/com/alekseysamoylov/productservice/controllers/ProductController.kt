@@ -28,21 +28,13 @@ class ProductController {
 
     @GetMapping("/product/{productId}")
     fun getProduct(@PathVariable productId: String): Product {
-//        val product = products[productId]
-//        if (product != null) {
-//            return product
-//        } else {
-//            return Product()
-//        }
         return productRepository.findOne(productId)
     }
 
     @PostMapping("/product")
     fun saveProduct(@RequestBody product: Product): Product {
-//        val id = counter.incrementAndGet().toString()
-//        product.id = id
-//        product.name = "$productPrefix ${product.name}"
-//        products.put(id, product)
+        product.name = "$productPrefix ${product.name}"
+        log.info("Product ${product.name} stored")
         return productRepository.save(product)
     }
 
