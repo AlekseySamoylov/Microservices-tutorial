@@ -19,3 +19,11 @@ eureka:
 
 product:
   prefix: ${PRODUCT-PREFIX:product}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+  security:
+    enabled: false
+

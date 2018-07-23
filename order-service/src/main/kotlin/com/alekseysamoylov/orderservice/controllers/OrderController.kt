@@ -1,7 +1,7 @@
 package com.alekseysamoylov.orderservice.controllers
 
-import com.alekseysamoylov.orderservice.feignservice.ProductClient
 import com.alekseysamoylov.orderservice.model.Product
+import com.alekseysamoylov.orderservice.service.ProductService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
@@ -13,7 +13,7 @@ class OrderController {
     private lateinit var restTemplate: RestTemplate
 
     @Autowired
-    private lateinit var productClient: ProductClient
+    private lateinit var productService: ProductService
 
     @GetMapping("/")
     fun welcome(): String {
@@ -28,12 +28,17 @@ class OrderController {
 
     @GetMapping("/order-feign-product/{productId}")
     fun orderFeignProduct1(@PathVariable productId: String): String {
-        val product = productClient.findProduct(productId)
+        val product = productService.findProduct(productId)
         return "Service has ordered a product: $product using Feign"
     }
 
     @PostMapping("/save-product")
     fun saveProduct(@RequestBody product: Product): Product {
-        return productClient.saveProduct(product)
+        return productService.saveProduct(product)
+    }
+
+    @GetMapping("/all-products")
+    fun displayAll(): List<Product> {
+        return productService.findAll()
     }
 }

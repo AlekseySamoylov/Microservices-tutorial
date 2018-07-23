@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam
 @FeignClient(name = "product-service")
 interface ProductClient {
 
+    @GetMapping("/product")
+    fun findProducts(): List<Product>
+
     @GetMapping("/product/{productId}")
     fun findProduct(@RequestParam(name = "productId") productId: String): Product
 

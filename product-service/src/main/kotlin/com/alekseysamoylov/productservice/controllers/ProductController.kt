@@ -6,14 +6,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
-import java.util.concurrent.atomic.AtomicLong
 
 @RestController
 class ProductController {
     private val log = LoggerFactory.getLogger(ProductController::class.java)
-
-    private var products: MutableMap<String, Product> = mutableMapOf("1" to Product("1", "New Product"))
-    private val counter: AtomicLong = AtomicLong(1)
 
     @Autowired
     private lateinit var productRepository: ProductRepository
@@ -40,7 +36,7 @@ class ProductController {
 
     @GetMapping("/product")
     fun getProducts(): Collection<Product> {
-        return products.values
+        return productRepository.findAll()
     }
 
 
