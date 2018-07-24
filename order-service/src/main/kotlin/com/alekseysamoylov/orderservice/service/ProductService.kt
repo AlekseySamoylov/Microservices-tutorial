@@ -5,36 +5,55 @@ import com.alekseysamoylov.orderservice.model.Product
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.CacheManager
+import org.springframework.cache.annotation.CachePut
 import org.springframework.stereotype.Service
 
+/**
+ * also you can use:
+ * \@CacheEvict - for clearing the cache
+ * \@Cacheable - for use cache in method invocation
+ */
 @Service
 class ProductService {
     private val log = LoggerFactory.getLogger(ProductService::class.java)
 
-
     @Autowired
     private lateinit var productClient: ProductClient
 
-    @HystrixCommand(fallbackMethod = "findAllFallback")
-    fun findAll(): List<Product> {
+    @Autowired
+    private lateinit var cacheManager: CacheManager
+
+    @CachePut("allProducts")
+    @HystrixCommand(fallbackMethod = "findAllByKindFallback")
+    fun findAllByKind(kind: String): List<Product> {
         return productClient.findProducts()
     }
 
+    fun findAllByKindFallback(kind: String): List<Product> {
+        log.error("Product service is not available, use cache")
+        return cacheManager.getCache("allProducts")
+                .get(kind).get() as List<Product>
+    }
+
+    @CachePut("product")
     @HystrixCommand(fallbackMethod = "findProductFallback")
     fun findProduct(productId: String): Product {
         return productClient.findProduct(productId)
     }
 
+    fun findProductFallback(productId: String): Product {
+        log.error("Product service is not available, use cache")
+        val product: Product = cacheManager.getCache("product").get(productId).get() as Product
+        if (product.id != null) {
+            return product
+        } else {
+            log.error("Product cache is not available, return default product")
+            return Product("0", "Default Product using Hystrix")
+        }
+    }
+
     fun saveProduct(product: Product): Product {
         return productClient.saveProduct(product)
-    }
-
-    fun findAllFallback(): List<Product> {
-        log.error("Product service is not available")
-        return ArrayList()
-    }
-
-    fun findProductFallback(productId: String): Product {
-        return Product("0", "Default Product using Hystrix")
     }
 }

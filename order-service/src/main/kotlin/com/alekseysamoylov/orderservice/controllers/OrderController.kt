@@ -39,6 +39,6 @@ class OrderController {
 
     @GetMapping("/all-products")
     fun displayAll(): List<Product> {
-        return productService.findAll()
+        return productService.findAllByKind("all")
     }
 }
