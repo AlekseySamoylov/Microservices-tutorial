@@ -30,6 +30,7 @@ class ProductService {
         return productClient.findProducts()
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun findAllByKindFallback(kind: String): List<Product> {
         log.error("Product service is not available, use cache")
         return cacheManager.getCache("allProducts")
