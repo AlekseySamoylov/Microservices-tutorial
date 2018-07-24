@@ -1,6 +1,11 @@
 spring:
   application:
     name: order-service
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: ${REDIS-PORT:6379}
 
 server:
   port: ${PORT:8090}
