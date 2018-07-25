@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -22,5 +23,12 @@ class ClientController {
         log.info("Info logging Kotlin client in region $region")
         log.debug("Debug logging Kotlin client in region $region")
         return "Hello kotlin app: ${clientConfiguration.getConfigurableName()} in region $region";
+    }
+
+    @GetMapping("/client/{clientId}")
+    fun getClient(@PathVariable clientId: String): String {
+        log.info("Info logging Kotlin client in region $region")
+        log.debug("Debug logging Kotlin client in region $region")
+        return "Kotlin client $clientId from region $region";
     }
 }

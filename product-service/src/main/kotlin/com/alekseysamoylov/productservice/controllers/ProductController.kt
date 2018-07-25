@@ -16,7 +16,6 @@ class ProductController {
 
     @Value("\${product.prefix}")
     private lateinit var productPrefix: String
-
     @GetMapping("/")
     fun ping(): String {
         return "Hello kotlin product app"
@@ -24,7 +23,9 @@ class ProductController {
 
     @GetMapping("/product/{productId}")
     fun getProduct(@PathVariable productId: String): Product {
-        return productRepository.findOne(productId)
+        val product = productRepository.findOne(productId)
+        product.name += getStockName()
+        return product
     }
 
     @PostMapping("/product")
@@ -36,7 +37,15 @@ class ProductController {
 
     @GetMapping("/product")
     fun getProducts(): Collection<Product> {
-        return productRepository.findAll()
+        val products = productRepository.findAll()
+        products.forEach { product ->
+            product.name += getStockName()
+        }
+        return products
+    }
+
+    fun getStockName(): String {
+        return " from  $productPrefix stock"
     }
 
 

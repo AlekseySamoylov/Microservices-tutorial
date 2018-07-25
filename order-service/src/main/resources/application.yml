@@ -15,6 +15,11 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+#ribbon:
+#    ReadTimeout: 3000
+#    MaxAutoRetries: 3
+#    MaxAutoRetriesNextServer: 3
+
 management:
   endpoints:
     web:

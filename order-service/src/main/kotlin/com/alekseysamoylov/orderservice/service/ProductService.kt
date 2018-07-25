@@ -20,6 +20,8 @@ class ProductService {
 
     @Autowired
     private lateinit var productClient: ProductClient
+    @Autowired
+    private lateinit var clientService: ClientService
 
     @Autowired
     private lateinit var cacheManager: CacheManager
@@ -27,7 +29,7 @@ class ProductService {
     @CachePut("allProducts")
     @HystrixCommand(fallbackMethod = "findAllByKindFallback")
     fun findAllByKind(kind: String): List<Product> {
-        return productClient.findProducts()
+        return clientService.addClientsToAll(productClient.findProducts())
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -40,17 +42,17 @@ class ProductService {
     @CachePut("product")
     @HystrixCommand(fallbackMethod = "findProductFallback")
     fun findProduct(productId: String): Product {
-        return productClient.findProduct(productId)
+        return clientService.addClientToProduct(productClient.findProduct(productId))
     }
 
     fun findProductFallback(productId: String): Product {
         log.error("Product service is not available, use cache")
         val product: Product = cacheManager.getCache("product").get(productId).get() as Product
-        if (product.id != null) {
-            return product
+        return if (product.id != null) {
+            product
         } else {
             log.error("Product cache is not available, return default product")
-            return Product("0", "Default Product using Hystrix")
+            clientService.addClientToProduct(Product("0", "Default Product using Hystrix"))
         }
     }
 

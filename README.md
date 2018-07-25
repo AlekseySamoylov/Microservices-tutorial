@@ -13,3 +13,4 @@ go-client: http://localhost:8085/ping
 api-gateway: http://localhost:8765/api/client/ping
              http://localhost:8765/api/kotlin-client/ping
 kibana: 
+hystrix dashboard: http://127.0.0.1:9000/hystrix.stream and add for example localhost:8090/hystrix.stream
