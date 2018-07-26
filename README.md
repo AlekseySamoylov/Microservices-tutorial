@@ -12,5 +12,13 @@ kotlin-client: http://localhost:8083/ping
 go-client: http://localhost:8085/ping
 api-gateway: http://localhost:8765/api/client/ping
              http://localhost:8765/api/kotlin-client/ping
+product-service: http://localhost:8071/product
+order-service: http://localhost:8090/all-products
 kibana: 
 hystrix dashboard: http://127.0.0.1:9000/hystrix.stream and add for example localhost:8090/hystrix.stream
+
+
+Part 13.
+separate configuration arguments:
+JVM arguments: -Dspring.cloud.config.enabled=false -DPORT=8766
+Program arguments: --spring.config.location=classpath:dev/application.yml

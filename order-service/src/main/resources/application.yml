@@ -15,11 +15,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
-#ribbon:
-#    ReadTimeout: 3000
-#    MaxAutoRetries: 3
-#    MaxAutoRetriesNextServer: 3
-
 management:
   endpoints:
     web:
@@ -27,3 +22,6 @@ management:
         include: hystrix.stream
   security:
     enabled: false
+
+order:
+  prefix: ${order.prefix:order}

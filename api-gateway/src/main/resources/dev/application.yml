@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+    register-with-eureka: false
+
+server:
+  port: ${PORT:8765}
+
+zuul:
+  prefix: /api
+  routes:
+    client:
+      path: /java-client/**
+      serviceId: service-discovery-client
+    kotlin-client:
+      path: /kotlin-client/**
+      serviceId: service-kotlin-client
+    order-service:
+      path: /order/**
+      serviceId: order-service
+    product-service:
+      path: /product/**
+      serviceId: product-service
+  host:
+    max-total-connections: 200
+    connect-timeout-millis: 2000
+
+spring:
+  boot:
+    admin:
+      url: http://localhost:8086
+  profiles:
+    active: dev
+  application:
+    name: api-gateway
+
+management:
+  security:
+    enabled: false

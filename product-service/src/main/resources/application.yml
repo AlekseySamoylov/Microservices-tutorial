@@ -19,6 +19,7 @@ eureka:
 
 product:
   prefix: ${PRODUCT-PREFIX:product}
+
 management:
   endpoints:
     web:
