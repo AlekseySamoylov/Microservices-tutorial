@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        kotlinVersion = '1.2.51'
         springBootVersion = '1.5.14.RELEASE'
     }
     repositories {
@@ -7,9 +8,13 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
 }
 
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -18,6 +23,18 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.alekseysamoylov'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
 
 repositories {
     mavenCentral()
@@ -34,9 +51,13 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('de.codecentric:spring-boot-admin-starter-client:1.5.7')
+    compile('io.springfox:springfox-swagger2:2.6.1')
+    compile('io.springfox:springfox-swagger-ui:2.6.1')
 
     compile('org.springframework.boot:spring-boot-starter-actuator')
 
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
