@@ -18,6 +18,5 @@ class MongoConfiguration {
         converter.typeMapper = DefaultMongoTypeMapper(null)
 
         return MongoTemplate(mongoDbFactory, converter)
-
     }
 }

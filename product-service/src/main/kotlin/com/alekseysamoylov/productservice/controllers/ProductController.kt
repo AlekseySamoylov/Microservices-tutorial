@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/product")
 class ProductController {
     private val log = LoggerFactory.getLogger(ProductController::class.java)
 
@@ -16,30 +17,35 @@ class ProductController {
 
     @Value("\${product.prefix}")
     private lateinit var productPrefix: String
-    @GetMapping("/")
-    fun ping(): String {
-        return "Hello kotlin product app"
-    }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/v1.1/{productId}")
     fun getProduct(@PathVariable productId: String): Product {
         val product = productRepository.findOne(productId)
         product.name += getStockName()
         return product
     }
 
-    @PostMapping("/product")
+    @PostMapping("/v1.1")
     fun saveProduct(@RequestBody product: Product): Product {
         product.name = "$productPrefix ${product.name}"
         log.info("Product ${product.name} stored")
         return productRepository.save(product)
     }
 
-    @GetMapping("/product")
+    @GetMapping("/v1.1")
     fun getProducts(): Collection<Product> {
         val products = productRepository.findAll()
         products.forEach { product ->
             product.name += getStockName()
+        }
+        return products
+    }
+
+    @GetMapping("/v1.0")
+    fun getProductsDeprecated(): Collection<Product> {
+        val products = productRepository.findAll()
+        products.forEach { product ->
+            product.name += "${getStockName()} DEPRECATED API"
         }
         return products
     }
