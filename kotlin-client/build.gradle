@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.41'
+        kotlinVersion = '1.2.51'
         springBootVersion = '1.5.14.RELEASE'
     }
     repositories {
@@ -50,12 +50,13 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+    compile('io.springfox:springfox-swagger2:2.6.1')
+    compile('io.springfox:springfox-swagger-ui:2.6.1')
 
     compile('net.logstash.logback:logstash-logback-encoder:4.11')
 
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
