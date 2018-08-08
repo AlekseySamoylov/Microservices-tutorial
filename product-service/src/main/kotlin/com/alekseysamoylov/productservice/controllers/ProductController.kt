@@ -26,6 +26,7 @@ class ProductController {
         return product
     }
 
+    @Monitored
     @PostMapping("/v1.1")
     fun saveProduct(@RequestBody product: Product): Product {
         product.name = "$productPrefix ${product.name}"

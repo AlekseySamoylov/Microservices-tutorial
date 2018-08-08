@@ -17,6 +17,7 @@ buildscript {
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
@@ -46,6 +47,7 @@ repositories {
 ext {
     springBootAdminVersion = '1.5.7'
     springCloudVersion = 'Edgware.BUILD-SNAPSHOT'
+    javasimonVersion = '4.1.3'
 }
 
 dependencies {
@@ -58,10 +60,9 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-    compile 'org.javasimon:javasimon-core:4.1.3'
-    compile 'org.javasimon:javasimon-spring:4.1.3'
-    compile 'org.javasimon:javasimon-console-embed:4.1.3'
-    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.7.3'
+    compile("org.javasimon:javasimon-core:${javasimonVersion}")
+    compile("org.javasimon:javasimon-spring:${javasimonVersion}")
+    kapt group: 'org.aspectj', name: 'aspectjrt', version: '1.7.3'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 

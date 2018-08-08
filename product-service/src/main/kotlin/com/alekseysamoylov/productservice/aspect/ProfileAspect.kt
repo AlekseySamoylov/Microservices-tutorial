@@ -6,12 +6,12 @@ import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.javasimon.SimonManager
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.Component
 import java.util.*
 
 
 @Aspect
-@Configuration
+@Component
 class ProfileAspect {
     private val LOGGER = LoggerFactory.getLogger(ProfileAspect::class.java)
 
