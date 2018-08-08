@@ -2,6 +2,7 @@ package com.alekseysamoylov.productservice.controllers
 
 import com.alekseysamoylov.productservice.entity.Product
 import com.alekseysamoylov.productservice.repository.ProductRepository
+import org.javasimon.aop.Monitored
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -25,6 +26,7 @@ class ProductController {
         return product
     }
 
+    @Monitored
     @PostMapping("/v1.1")
     fun saveProduct(@RequestBody product: Product): Product {
         product.name = "$productPrefix ${product.name}"
@@ -32,9 +34,11 @@ class ProductController {
         return productRepository.save(product)
     }
 
+    @Monitored
     @GetMapping("/v1.1")
     fun getProducts(): Collection<Product> {
         val products = productRepository.findAll()
+        Thread.sleep((1000 + (Math.random() * 150)).toLong())
         products.forEach { product ->
             product.name += getStockName()
         }
