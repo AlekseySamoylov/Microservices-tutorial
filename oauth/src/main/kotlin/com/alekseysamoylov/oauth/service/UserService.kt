@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service
 @Service
 class UserService {
     fun findUserByEmail(email: String?): User {
-
-
+        return User()
     }
 
 }

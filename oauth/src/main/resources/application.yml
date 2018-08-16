@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: oauth-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oauth_db
+    username: auth_user
+    password: sql

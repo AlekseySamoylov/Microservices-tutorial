@@ -4,7 +4,9 @@ import com.alekseysamoylov.oauth.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.social.connect.Connection
 import org.springframework.social.connect.ConnectionSignUp
+import org.springframework.stereotype.Service
 
+@Service
 class ProviderConnectionSignup : ConnectionSignUp {
 
     @Autowired

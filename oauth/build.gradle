@@ -48,13 +48,19 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    // Tools:
     compile("org.springframework.boot:spring-boot-starter-logging")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     runtime("org.springframework.boot:spring-boot-devtools")
     compile("org.springframework.boot:spring-boot-configuration-processor")
 
+    compile('org.liquibase:liquibase-core')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtime('org.postgresql:postgresql')
+
     compile('org.springframework.boot:spring-boot-starter-social-facebook')
+    compile("org.springframework.social:spring-social-google:1.0.0.RELEASE")
+    compile("org.springframework.social:spring-social-github:1.0.0.M4")
+
     compile('org.apache.commons:commons-lang3:3.5')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
