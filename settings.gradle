@@ -1,12 +1,103 @@
+import java.nio.file.Paths
+
+import static AppRegion.*
+import static AppComponent.*
+
 rootProject.name = 'micro'
-include 'service-discovery-client'
-include 'service-go-client'
-include 'service-discovery-server'
-include 'api-gateway'
-include 'config-server'
-include 'admin'
-include 'kotlin-client'
-include 'product-service'
-include 'order-service'
-include 'hystrix-dashboard'
-include 'oauth'
+
+ext {
+    modules = [] as List
+}
+
+enum AppRegion {
+    CORE,
+    BR,
+    RU,
+    USA
+}
+
+enum AppComponent {
+    BASE,
+    AUTH,
+    STORE,
+    EXPERIMENT,
+    ALL
+}
+
+includeModule 'service-discovery-client', CORE, BASE
+includeModule 'service-go-client', [USA, RU], BASE
+includeModule 'service-discovery-server', CORE, BASE
+includeModule 'api-gateway', CORE, BASE
+includeModule 'config-server', CORE, BASE
+includeModule 'admin', CORE, BASE
+includeModule 'kotlin-client', [USA], EXPERIMENT
+includeModule 'product-service', [BR], STORE
+includeModule 'order-service', [BR], STORE
+includeModule 'hystrix-dashboard', CORE, BASE
+includeModule 'oauth', CORE, AUTH
+includeModule 'reactor', CORE, EXPERIMENT
+
+include collectModules(modules)
+
+class Module {
+    String path
+    AppRegion region
+    AppComponent component
+
+    Module(String path, AppRegion region, AppComponent component) {
+        this.path = path
+        this.region = region
+        this.component = component
+    }
+
+
+    @Override
+    String toString() {
+        return "Module {" +
+                "path='" + path + '\'' +
+                ", region=" + region +
+                ", component=" + component +
+                '}'
+    }
+}
+
+void includeModule(String path, List<AppRegion> apps, AppComponent component) {
+    apps.each { region -> includeModule(path, region, component) }
+}
+
+void includeModule(String path, AppRegion region, List<AppComponent> domains) {
+    domains.each { component -> includeModule(path, region, component) }
+}
+
+void includeModule(String path, AppRegion region, AppComponent component) {
+    def projectPath = Paths.get(rootProject.getProjectDir().path, path.replace(":", File.separator))
+    if (!projectPath.toFile().exists()) {
+        throw new GradleException("Project directory not found for module " + path)
+    }
+    modules.add(new Module(path, region, component))
+}
+
+
+def collectModules(List<Module> modules) {
+    Set<AppRegion> apps = enumsFromString(includedAppRegions, AppRegion.values(), { AppRegion.valueOf(it) })
+    Set<AppComponent> appComponents = enumsFromString(includedAppComponent, AppComponent.values(), {
+        AppComponent.valueOf(it)
+    })
+    Set<String> result = []
+
+    modules.findAll { it ->
+        (apps.contains(it.region) || it.region == CORE) && (appComponents.contains(it.component) || it.component == BASE)
+    }.each {
+        result.add it.path
+    }
+    return result.toArray(new String[0])
+}
+
+private static Set enumsFromString(String params, values, Closure valueFromString) {
+    if (params == null || "".equals(params)|| params.toUpperCase() == "ALL") {
+        return values
+    }
+    params.replace(' ', '').split(',').collect(valueFromString) as Set
+}
+
+
