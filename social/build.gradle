@@ -1,10 +1,12 @@
 buildscript {
     ext {
         kotlinVersion = '1.2.51'
-        springBootVersion = '2.0.4.RELEASE'
+        springBootVersion = '1.5.16.BUILD-SNAPSHOT'
     }
     repositories {
         mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -37,17 +39,22 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-security')
 
-//    compile('org.springframework.social:spring-social-web:1.1.6.RELEASE')
-    compile('org.springframework.social:spring-social-facebook:2.0.3.RELEASE')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+    compile("org.springframework.security:spring-security-taglibs")
 
+    compile('org.springframework.social:spring-social-facebook:2.0.3.RELEASE')
+    compile('org.springframework.social:spring-social-security')
     compile('org.apache.commons:commons-lang3:3.5')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

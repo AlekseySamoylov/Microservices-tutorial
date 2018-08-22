@@ -34,7 +34,7 @@ includeModule 'kotlin-client', [USA], EXPERIMENT
 includeModule 'product-service', [BR], STORE
 includeModule 'order-service', [BR], STORE
 includeModule 'hystrix-dashboard', CORE, BASE
-includeModule 'oauth', CORE, AUTH
+includeModule 'social', CORE, AUTH
 includeModule 'reactor', CORE, EXPERIMENT
 
 include collectModules(modules)

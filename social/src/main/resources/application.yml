@@ -1,7 +1,11 @@
 spring:
   application:
-    name: oauth-app
+    name: social
   datasource:
-    url: jdbc:postgresql://localhost:5432/auth_db
-    username: auth_user
+    url: jdbc:postgresql://localhost:5432/public_db
+    username: db_user
     password: sql
+  social:
+    facebook:
+      app-id: ######
+      app-secret: ######
