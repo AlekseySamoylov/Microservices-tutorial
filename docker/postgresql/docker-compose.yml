@@ -9,5 +9,5 @@ services:
     restart: unless-stopped
     # it can be deleted
     environment:
-    - DB_USER=auth_user
+    - DB_USER=db_user
     - DB_PASS=sql
